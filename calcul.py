@@ -1,6 +1,7 @@
+"""Mini-projet : Drôle de calcul du druide – version console uniquement."""
+
 # -------------------------------------------------------
-# Mini-projet : Drôle de calcul du druide
-# Version : saisie uniquement par la console
+# Code structuré en services, ≤12 lignes chacun
 # -------------------------------------------------------
 
 def saisir_expression():
@@ -26,7 +27,7 @@ def est_nombre(tok):
     try:
         float(tok)
         return True
-    except:
+    except (ValueError, TypeError):
         return False
 
 
@@ -56,7 +57,7 @@ def calculer_postfixe(tokens):
             b, a = pile.pop(), pile.pop()
             try:
                 pile.append(appliquer_operateur(tok, a, b))
-            except Exception as e:
+            except (ValueError, ZeroDivisionError) as e:
                 return f"ERREUR: {e}"
         else:
             return f"ERREUR: symbole inconnu '{tok}'"
@@ -68,7 +69,8 @@ def gerer_erreur(msg, fatal=True):
     print("=== ERREUR ===")
     print(msg)
     if fatal:
-        exit(1)
+        import sys
+        sys.exit(1)
 
 
 def main():
@@ -83,6 +85,5 @@ def main():
         print("Résultat :", resultat)
 
 
-# Lance le programme
 if __name__ == "__main__":
     main()
