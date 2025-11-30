@@ -1,17 +1,17 @@
 """Mini-projet : calcul postfixé – console + fichier."""
 import sys
 
+
 def lire_expression_fichier(path):
     """Lit une expression dans un fichier."""
     try:
-        with open(path, "r", encoding="utf-8") as f:
+        with open(path, "r") as f:
             expr = f.read().strip()
         return expr if expr else "ERREUR: expression vide"
     except FileNotFoundError:
         return "ERREUR: fichier introuvable"
     except OSError:
         return "ERREUR: erreur lecture fichier"
-
 
 def saisir_expression():
     """Saisie console."""
