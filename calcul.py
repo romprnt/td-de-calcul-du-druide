@@ -1,5 +1,16 @@
-"""Mini-projet : calcul postfixé – version console simple."""
+"""Mini-projet : calcul postfixé – console + fichier."""
 import sys
+
+def lire_expression_fichier(path):
+    """Lit une expression dans un fichier."""
+    try:
+        with open(path, "r") as f:
+            expr = f.read().strip()
+        return expr if expr else "ERREUR: expression vide"
+    except FileNotFoundError:
+        return "ERREUR: fichier introuvable"
+    except OSError:
+        return "ERREUR: erreur lecture fichier"
 
 def saisir_expression():
     """Saisie console."""
@@ -55,7 +66,15 @@ def gerer_erreur(msg, fatal=True):
 
 def main():
     """Flow principal."""
-    expr = saisir_expression()
+    mode = input("1=Fichier, 2=Console : ").strip()
+    if mode == "1":
+        chemin = input("Chemin du fichier : ").strip()
+        expr = lire_expression_fichier(chemin)
+    elif mode == "2":
+        expr = saisir_expression()
+    else:
+        gerer_erreur("Mode inconnu", True)
+
     res = calculer_postfixe(parser_expression(expr))
     if isinstance(res, str) and res.startswith("ERREUR"):
         gerer_erreur(res, False)
@@ -64,4 +83,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
