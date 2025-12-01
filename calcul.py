@@ -20,7 +20,7 @@ def lire_expression_fichier(path_str: str) -> str:
     :raises FileNotFoundError: Si le fichier n'existe pas
     :raises OSError: En cas d'erreur de lecture
     """
-    # Utilisation de Pathlib + encoding explicite [cite: 119]
+    # Utilisation de Pathlib + encoding explicite
     path = Path(path_str)
     if not path.exists():
         raise FileNotFoundError(f"Fichier introuvable : {path_str}")
@@ -60,7 +60,7 @@ def parser_expression(expr: str) -> List[str]:
 
 
 def est_nombre(tok: str) -> bool:
-    """Vérifie si un token est un nombre valide."""
+    """Vérifie si un token est un nombre valide"""
     try:
         float(tok)
         return True
@@ -70,7 +70,7 @@ def est_nombre(tok: str) -> bool:
 
 def appliquer_operateur(op: str, a: float, b: float) -> float:
     """
-    Applique l'opérateur sur deux opérandes.
+    Applique l'opérateur sur deux opérandes
 
     :param op: L'opérateur (+, -, *, /)
     :param a: Premier opérande (gauche)
@@ -178,11 +178,11 @@ def main() -> int:
         return 0
 
     except (FileNotFoundError, ValueError, ZeroDivisionError, OSError) as e:
-        # Gestion centralisée des erreurs [cite: 182]
+        # Gestion centralisée des erreurs 
         gerer_erreur(e, fatal=False)
         return 1
 
 
 if __name__ == "__main__":
-    # Point d'entrée clair et protégé [cite: 207, 292]
+    # Point d'entrée clair et protégé 
     sys.exit(main())
